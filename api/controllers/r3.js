@@ -2,7 +2,7 @@ const {getKeyStore} = require("../model/keyStore");
 const HttpStatus = require("http-status-codes");
 const keyStore = getKeyStore();
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
     const key = req.params.key;
     const blockedKeys = keyStore.getValue("blocked");
     if (blockedKeys && blockedKeys.has(key)) {
@@ -10,6 +10,6 @@ module.exports = (req, res) => {
         keyStore.changeKeyValue(key, "available");
         res.status(HttpStatus.OK).json({ apiKey: key });
     } else {
-        res.status(HttpStatus.NOT_FOUND).json({ Error: "No such key found" });
+        next(new Error("NO_KEY"));
     }
 }

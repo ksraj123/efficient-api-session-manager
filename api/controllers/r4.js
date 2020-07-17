@@ -2,7 +2,7 @@ const {getKeyStore} = require("../model/keyStore");
 const HttpStatus = require("http-status-codes");
 const keyStore = getKeyStore();
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
     const key = req.params.key;
     if (keyStore.getKey(key)){
         const keyInfo = keyStore.getAdditionalKeyInfo(key);
@@ -11,6 +11,6 @@ module.exports = (req, res) => {
         keyStore.deleteKey(key);
         res.status(HttpStatus.OK).json({ apiKey: key });
     } else {
-        res.status(HttpStatus.NOT_FOUND).json({ error: "No Available Key" });
+        next(new Error("NO_KEY"));
     }
 }

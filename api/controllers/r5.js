@@ -2,12 +2,12 @@ const {getKeyStore} = require("../model/keyStore");
 const HttpStatus = require("http-status-codes");
 const keyStore = getKeyStore();
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
     const user = req.body.user;
     const key = req.params.key;
     const additionalInfo = keyStore.getAdditionalKeyInfo(key);
     if (user !== additionalInfo[0]){
-        res.status(HttpStatus.FORBIDDEN).json({ error: "No access to this API key"})
+        next(new Error("NO_ACC_KEY"));
     } else {
         clearTimeout(additionalInfo[2]); // clear old 5 min timer
         const deleteTimeout = setTimeout(() => keyStore.deleteKey(key), 5*60*1000); // new 5 min timer

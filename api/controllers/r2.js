@@ -2,10 +2,10 @@ const {getKeyStore} = require("../model/keyStore");
 const HttpStatus = require("http-status-codes");
 const keyStore = getKeyStore();
 
-module.exports = (req, res) => {
+module.exports = (req, res, next) => {
     let availableKeys = keyStore.getValue("available"); // O(1)
     if (!availableKeys || !availableKeys.entries().next().value) {
-        res.status(HttpStatus.NOT_FOUND).json({ error: "No Available Key" })
+        next(new Error("NO_KEY"));
     } else {
         // get first available key in keyStore
         const user = req.body.user;
