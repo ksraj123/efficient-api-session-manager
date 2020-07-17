@@ -9,15 +9,17 @@ class MultiMap {
     }
     add(k, v) {
         if (!this.map.has(k)) this.map.set(k, new Map());
-        this.map.get(k).set(v, "");
+        this.map.get(k).set(v, []);
     }
     delete(k, v) {
         if (this.map.has(k)) {
             this.map.get(k).delete(v);
         }
     }
-    setAdditional(k, v, info) {
-        this.map.get(k).set(v, info);
+    setAdditional(k, v, user="", timer1=0, timer5=0) {
+        if (this.map.has(k)){
+            this.map.get(k).set(v, [user, timer1, timer5]);
+        }
     }
     getKey(k) {
         return this.map.get(k);
@@ -42,9 +44,11 @@ class BiMultiMap {
     }
     changeKeyValue(k, v) {
         const prevVal = this.keyMap.get(k);
+        const additionalValues = this.valueMap.getKey(prevVal).get(k);
         this.keyMap.set(k, v);
         this.valueMap.delete(prevVal, k);
         this.valueMap.add(v, k);
+        this.valueMap.setAdditional(v, k, ...additionalValues);
     }
     deleteKey(k) {
         const currVal = this.keyMap.get(k);
@@ -57,13 +61,12 @@ class BiMultiMap {
     getValue(v) {
         return this.valueMap.getKey(v);
     }
-    setAdditionalKeyInfo(k, info) {
+    setAdditionalKeyInfo(k, user, timer1, timer5) {
         const currVal = this.keyMap.get(k);
-        this.valueMap.setAdditional(currVal, k, info);
+        this.valueMap.setAdditional(currVal, k, user, timer1, timer5);
     }
     getAdditionalKeyInfo(k) {
         const currVal = this.keyMap.get(k);
-        console.log(currVal);
         return this.valueMap.getKey(currVal).get(k);
     }
 }

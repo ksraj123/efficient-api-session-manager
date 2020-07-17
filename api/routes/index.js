@@ -5,11 +5,15 @@ const r2Controller = require('../controllers/r2');
 const r3Controller = require('../controllers/r3');
 const r4Controller = require('../controllers/r4');
 const r5Controller = require('../controllers/r5');
+const getBlockedController = require('../controllers/blockedKeys');
+const getAvailableController = require('../controllers/availableKeys');
 
-router.get("/R1", r1Controller);
-router.get("/R2", r2Controller);
-router.get("/R3/:key", r3Controller);
-router.get("/R4/:key", r4Controller);
-router.get("/R5/:key", r5Controller);
+router.get("/generate-key", r1Controller);
+router.post("/get-key", r2Controller);
+router.put("/unblock/:key", r3Controller);
+router.delete("/delete/:key", r4Controller);
+router.put("/keep-alive/:key", r5Controller);
+router.get("/blocked", getBlockedController);
+router.get("/available", getAvailableController);
 
 module.exports =router;
