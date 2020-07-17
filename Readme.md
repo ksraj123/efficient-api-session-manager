@@ -10,13 +10,13 @@
 
 ## Routes
 
-/generate-key       -   GET
-/get-key            -   POST
-/unblock/:key       -   PUT
-/delete/:key        -   DELETE
-/keep-alive/:key    -   PUT
-/blocked            -   GET
-/available          -   GET
+/api/generate-key       -   GET
+/api/get-key            -   POST
+/api/unblock/:key       -   PUT
+/api/delete/:key        -   DELETE
+/api/keep-alive/:key    -   PUT
+/api/blocked            -   GET
+/api/available          -   GET
 
 ## Approach and asumptions
 
@@ -35,6 +35,8 @@ Here is what the user object might look like
     }
 
 ## Workflow and Steps for testing
+
+`npm start`
 
 **Step 1 :** Send a GET request to `/generate-key` to generate an API key
 
