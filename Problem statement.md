@@ -52,3 +52,5 @@ No authentication for any route, all accessible by client
 - write middlewares for validating requests
 
 - Look into handling errors using middleware and res.error
+
+- res.status(HttpStatus.OK).json({ success: 'ok' }) - look into the codebase for more coding styles
