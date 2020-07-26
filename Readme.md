@@ -1,4 +1,10 @@
-# Codeuino Task
+# Efficient API Session Manager (Without Databases)
+
+## About
+
+- Allows efficiient management of API keys issued to different users.
+
+- Operations related to all endpoints are completed in O(1) time complexity.
 
 ## Time complexity
 
