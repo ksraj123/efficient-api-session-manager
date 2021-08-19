@@ -1,4 +1,4 @@
-# Efficient API Session Manager (Without Databases)
+# Efficient API Session Manager (In Memory)
 
 ## About
 
